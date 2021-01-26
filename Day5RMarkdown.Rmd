@@ -1,0 +1,41 @@
+---
+title: "Day5RMarkdown.Rmd"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(BasketballAnalyzeR)
+```
+
+
+
+```{r}
+PbP <- PbPmanipulation(PbP.BDB)
+PbP %>% mutate(xx = original_x/10, yy = original_y/10 - 41.75) -> PbP
+PbP %>% filter(player == "Stephen Curry") -> stephCurry
+
+```
+
+```{r}
+shotchart(data = NULL, x=0, y=0, type = "sectors", num.sect = 5, sectline.col = "black")
+```
+ 
+```{r}
+shotchart(data = stephCurry, x="xx", y="yy", z = "playlength", num.sect = 5, type = "sectors", scatter = TRUE)
+```
+ 
+```{r}
+shotchart(data = stephCurry, x="xx", y="yy", z = "playlength", num.sect = 5, type = "sectors", scatter = FALSE, result = "result", text.col = "black")
+```
+ 
+```{r}
+PbP %>% filter(team == "GSW") -> gsw
+shotchart(data = stephCurry, x= "xx", y= "yy", type = "density-raster")
+```
+ 
+ 

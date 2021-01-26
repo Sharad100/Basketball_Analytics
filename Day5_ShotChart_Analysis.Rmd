@@ -1,0 +1,60 @@
+---
+title: "Day5_ShotChart_Analysis"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+read.csv("nba200506PbPShots.csv") -> PbP_2005_2006
+read.csv("nba201011PbPShots.csv") -> PbP_2010_2011
+read.csv("nba201516PbPShots.csv") -> PbP_2015_2016
+
+```
+
+```{r}
+PbP_2005_2006 <- PbPmanipulation(PbP_2005_2006)
+PbP_2005_2006 %>% mutate(xx = original_x/10, yy = original_y/10 - 41.75) -> PbP_2005_2006
+PbP_2010_2011 <- PbPmanipulation(PbP_2010_2011)
+PbP_2010_2011 %>% mutate(xx = original_x/10, yy = original_y/10 - 41.75) -> PbP_2010_2011
+PbP_2015_2016 <- PbPmanipulation(PbP_2015_2016)
+PbP_2015_2016 %>% mutate(xx = original_x/10, yy = original_y/10 - 41.75) -> PbP_2015_2016
+```
+
+```{r}
+PbP_2005_2006 %>% filter(team == "GSW") -> GSW_2005_2006
+PbP_2010_2011 %>% filter(team == "GSW") -> GSW_2010_2011
+PbP_2015_2016 %>% filter(team == "GSW") -> GSW_2015_2016
+```
+
+```{r}
+GSW_2005_2006$result <- factor(GSW_2005_2006$result)
+
+```
+
+```{r}
+shotchart(data = GSW_2005_2006, x="xx", y="yy", type = "density-hexbin")
+```
+
+```{r}
+shotchart(data = GSW_2010_2011, x="xx", y="yy", type = "density-hexbin")
+```
+
+```{r}
+shotchart(data = GSW_2015_2016, x="xx", y="yy", type = "density-hexbin")
+```
+
+```{r}
+shotchart(data = GSW_2005_2006, x="xx", y="yy", num.sect = 5, type = "sectors", scatter = FALSE, result = "result", text.col = "red", sectline.col = "black")
+```
+
+```{r}
+shotchart(data = GSW_2010_2011, x="xx", y="yy", num.sect = 5, type = "sectors", scatter = FALSE, result = "result", text.col = "red", sectline.col = "black")
+```
+
+```{r}
+shotchart(data = GSW_2015_2016, x="xx", y="yy", num.sect = 5, type = "sectors", scatter = FALSE, result = "result", text.col = "red", sectline.col = "black")
+```
+

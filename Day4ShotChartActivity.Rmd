@@ -1,0 +1,44 @@
+---
+title: "Day4ShotChartActivity.Rmd"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+.
+```{r}
+library(tidyverse)
+library(BasketballAnalyzeR)
+```
+
+```{r}
+read.csv('nba201516PbPShots.csv') -> PbP_data
+```
+
+```{r}
+PbP_data <- PbPmanipulation(PbP_data)
+```
+
+```{r}
+PbP_data %>% mutate(xx = original_x/10, yy = original_y/10 - 41.75) -> PbP_data
+```
+
+
+```{r}
+PbP_data %>% filter(player == "Stephen Curry") -> stephCurry
+```
+
+
+```{r}
+stephCurry$result <- factor(stephCurry$result)
+```
+
+
+```{r}
+shotchart(data = stephCurry, x="xx", y="yy", z="result", scatter = TRUE)
+```
+ 
+
+

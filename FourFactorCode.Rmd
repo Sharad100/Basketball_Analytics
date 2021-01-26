@@ -1,0 +1,36 @@
+---
+title: "FourFactor"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+```
+
+
+```{r}
+read_csv("teamMisc.csv") -> teamMisc
+```
+
+```{r}
+teamMisc %>% select(Tm, Year, OeFGPerc, OTOVPerc, ORBPerc, OFTPerFGA, DeFGPerc, DTOVPerc, DRBPerc, DFTPerFGA) -> fourFactors
+```
+
+
+```{r}
+fourFactors %>% filter(Tm == "GSW" | Tm == "LAL") %>% filter(Year >= 2017) -> fourFactorsTwoTeams
+
+```
+
+```{r}
+fourFactorsTwoTeams %>% group_by(Tm) %>% summarize(OeFGPerc = mean(OeFGPerc), OTOVPerc = mean(OTOVPerc),ORBPerc = mean(ORBPerc), OFTPerFGA = mean(OFTPerFGA), DeFGPerc = mean(DeFGPerc), DTOVPerc = mean(DTOVPerc), DRBPerc = mean(DRBPerc), DFTPerFGA = mean(DFTPerFGA)) -> finalData
+```
+
+```{r}
+write_csv(finalData, "fourFactorsOfTwoTeams.csv")
+```
+

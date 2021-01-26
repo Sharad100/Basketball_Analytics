@@ -1,0 +1,31 @@
+---
+title: "Assignment 1"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+read_csv("nhl_data.csv") -> data
+```
+
+```{r}
+names(data)
+head(data)
+tail(data)
+```
+
+```{r}
+data$Points <- data$G + data$A
+```
+
+```{r}
+write_csv(data, path = "nhl_data_pts.csv")
+```
+

@@ -1,0 +1,26 @@
+---
+title: "Day2RMarkdown.Rmd" 
+output: html_document
+---
+```{r}
+
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+read_csv("teamMisc.csv") -> teamMisc
+```
+
+```{r}
+teamMisc %>% select(Tm, Year, OeFGPerc, OTOVPerc, ORBPerc, OFTPerFGA, DeFGPerc, DTOVPerc, DRBPerc, DFTPerFGA) -> fourFactors
+```
+
+
+
